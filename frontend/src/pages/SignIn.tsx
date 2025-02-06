@@ -10,7 +10,6 @@ export type SignInFormData = {
     email: string;
     password: string;
 };
-
 const SignIn = () => {
     const { showToast } = useAppContext();
     const navigate = useNavigate();

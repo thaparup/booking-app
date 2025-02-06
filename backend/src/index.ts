@@ -1,11 +1,16 @@
 import dotenv from "dotenv";
 import { app } from "./app";
 import connectDb from "./db/index";
-
+import dotenvx from "@dotenvx/dotenvx";
 dotenv.config({
   path: ".env",
 });
-
+dotenvx.config();
+const configs = {
+  api: process.env.api,
+};
+console.log(configs);
+console.log(process.env.CORS_ORIGIN);
 connectDb()
   .then((result) => {
     if (result === true) {

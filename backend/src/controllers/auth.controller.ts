@@ -54,7 +54,7 @@ const login = asyncHandler(
 );
 const validateToken = asyncHandler(
   async (req: Request, res: Response): Promise<any> => {
-    res.status(200).send({ userId: req.userId });
+    return res.status(200).send({ userId: req.userId });
   }
 );
 
