@@ -1,23 +1,4 @@
-import { RegisterFormData } from "./pages/Register";
-import { SignInFormData } from "./pages/SignIn";
-
-export const register = async (formData: RegisterFormData) => {
-  const response = await fetch(`/api/v1/user/register`, {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
-
-  const responseBody = await response.json();
-  console.log(responseBody);
-
-  if (!response.ok) {
-    throw new Error(responseBody.message);
-  }
-};
+import { SignInFormData } from "../pages/SignIn";
 
 export const signIn = async (formData: SignInFormData) => {
   const response = await fetch(`/api/v1/auth/login`, {
@@ -38,7 +19,7 @@ export const signIn = async (formData: SignInFormData) => {
 };
 
 export const validateToken = async () => {
-  const response = await fetch(`/api/auth/validate-token`, {
+  const response = await fetch(`/api/v1/auth/validate-token`, {
     credentials: "include",
   });
 
@@ -50,7 +31,7 @@ export const validateToken = async () => {
 };
 
 export const signOut = async () => {
-  const response = await fetch(`/api/auth/logout`, {
+  const response = await fetch(`/api/v1/auth/logout`, {
     credentials: "include",
     method: "POST",
   });

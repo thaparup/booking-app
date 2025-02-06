@@ -1,7 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler";
 import { ApiResponse } from "../utils/ApiResponse";
 import { User } from "../models/user.model";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { loginZodSchema } from "../zod_schema/user_zod_schema";
 import jwt from "jsonwebtoken";
 import { cookieOptions } from "../constants";
@@ -44,14 +44,28 @@ const login = asyncHandler(
       }
     );
     res.cookie("auth_token", token, cookieOptions);
-    res
-      .status(201)
-      .json(
-        new ApiResponse(201, "User logged in successfully!", {
-          userId: user._id,
-        })
-      );
+    res.status(201).json(
+      new ApiResponse(201, "User logged in successfully!", {
+        userId: user._id,
+        access_token: token,
+      })
+    );
+  }
+);
+const validateToken = asyncHandler(
+  async (req: Request, res: Response): Promise<any> => {
+    res.status(200).send({ userId: req.userId });
   }
 );
 
-export { login };
+const logout = async (req: Request, res: Response): Promise<void> => {
+  res
+    .status(200)
+    .clearCookie("auth_token", cookieOptions)
+    .json(new ApiResponse(200, "User logged Out", {}));
+};
+
+const demo = async (req: Request, res: Response): Promise<any> => {
+  return res.status(401).json({ message: "unauthorized" });
+};
+export { login, demo, logout, validateToken };

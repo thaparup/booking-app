@@ -29,7 +29,7 @@ const registerUser = asyncHandler(
         expiresIn: "1d",
       }
     );
-    // res.cookie("auth_token", token, cookieOptions);
+    res.cookie("auth_token", token, cookieOptions);
     res
       .status(201)
       .json(new ApiResponse(201, "User registered successfully!", {}));
