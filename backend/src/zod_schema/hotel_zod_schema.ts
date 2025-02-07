@@ -2,7 +2,7 @@ import { z } from "zod";
 import { bookingZodSchema } from "./booking_zod_shema"; // Assuming you already have the bookingSchema imported
 
 const hotelZodSchema = z.object({
-  _id: z.string().min(1, { message: "Hotel ID is required" }),
+  _id: z.string().optional(),
   userId: z.string().min(1, { message: "User ID is required" }),
   name: z.string().min(1, { message: "Hotel name is required" }),
   city: z.string().min(1, { message: "City is required" }),
@@ -25,7 +25,7 @@ const hotelZodSchema = z.object({
     .array(z.string().url({ message: "Invalid image URL" }))
     .nonempty({ message: "At least one image URL is required" }),
   lastUpdated: z.date(),
-  bookings: z.array(bookingZodSchema),
+  bookings: z.array(bookingZodSchema).optional(),
 });
 
 type TypeHotelZodSchema = z.infer<typeof hotelZodSchema>;
