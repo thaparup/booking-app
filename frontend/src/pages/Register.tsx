@@ -34,12 +34,12 @@ const Register = () => {
         },
         onError: (error: Error) => {
             showToast({ message: error.message, type: "ERROR" });
-            console.log(error)
+
         },
     });
 
     const onSubmit = handleSubmit((data) => {
-        console.log(data)
+
         mutation.mutate(data);
     });
 
