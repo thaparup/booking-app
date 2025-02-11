@@ -21,6 +21,7 @@ app.use(express.static("public"));
 import { router as userRouter } from "./routes/user.route";
 import { router as authRouter } from "./routes/auth.route";
 import { router as myHotelsRouter } from "./routes/my-hotels.route";
+import { router as hotelRouter } from "./routes/hotels.route";
 
 //user
 app.use("/api/v1/user", userRouter);
@@ -28,7 +29,10 @@ app.use("/api/v1/user", userRouter);
 // auth
 app.use("/api/v1/auth", authRouter);
 
-// my-hotes
+// my-hotels
 app.use("/api/v1/my-hotels", myHotelsRouter);
+
+// hotels
+app.use("/api/v1/hotels", hotelRouter);
 
 export { app };
