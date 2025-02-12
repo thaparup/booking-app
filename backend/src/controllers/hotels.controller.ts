@@ -68,6 +68,21 @@ const constructSearchQuery = (queryParams: any) => {
 };
 
 const getHotels = asyncHandler(async (req: Request, res: Response) => {
+  const query = constructSearchQuery(req.query);
+
+  let sortOptions = {};
+  switch (req.query.sortOption) {
+    case "starRating":
+      sortOptions = { starRating: -1 };
+      break;
+    case "pricePerNightAsc":
+      sortOptions = { pricePerNight: 1 };
+      break;
+    case "pricePerNightDesc":
+      sortOptions = { pricePerNight: -1 };
+      break;
+  }
+
   const pageSize = 5; //number of hotels
   const pageNumber = parseInt(req.query.page ? req.query.page.toString() : "1");
   const skip = (pageNumber - 1) * pageSize;
@@ -85,4 +100,13 @@ const getHotels = asyncHandler(async (req: Request, res: Response) => {
   res.json(response);
 });
 
-export { getHotels };
+const getHotelDetail = async (req: Request, res: Response): Promise<any> => {
+  if (!req.params.hotelId) {
+    return res.status(400).json({ message: "Hotel ID is required" });
+  }
+
+  const hotel = await Hotel.findById(req.params.hotelId);
+  res.json(hotel);
+};
+
+export { getHotels, getHotelDetail };

@@ -114,3 +114,14 @@ export const searchHotels = async (
 
   return response.json();
 };
+
+export const fetchHotelById = async (
+  hotelId: string
+): Promise<TypeHotelZodSchema> => {
+  const response = await fetch(`/api/v1/hotels/${hotelId}`);
+  if (!response.ok) {
+    throw new Error("Error fetching Hotels");
+  }
+
+  return response.json();
+};
